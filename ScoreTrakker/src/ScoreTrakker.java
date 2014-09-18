@@ -12,7 +12,7 @@ public class ScoreTrakker {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void loadDataFromFile(String fileName){
+	public void loadDataFromFile(String fileName) throws FileNotFoundException{
 		students = new ArrayList<Student>();
 
 			FileReader read = null;
@@ -29,9 +29,9 @@ public class ScoreTrakker {
 					score = Integer.parseInt(strNum);
 					students.add(new Student(name, score));
 				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				System.out.println("You have not entered a valid file name");
+			}
+			catch(NumberFormatException n){
+				System.out.println("Incorrect format for " + name + " not a valid score: " + n.getMessage());
 			}
 	}
 
@@ -43,7 +43,11 @@ public class ScoreTrakker {
 	}
 	
 	public void processFiles(){
-		loadDataFromFile("scores.txt");
+		try{
+			loadDataFromFile("scores.txt");
+		}catch(FileNotFoundException e){
+			System.out.println("Can't open file: " + e.getMessage());
+		}
 		printInOrder();
 	}
 	
