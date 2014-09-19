@@ -9,13 +9,8 @@ public class ScoreTrakker {
 	private ArrayList<Student> students;
 	private String[] files = {"scores.txt", "badscore.txt", "nofile.txt", "badname.txt" };
 
-	public ScoreTrakker() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public void loadDataFromFile(String fileName) throws FileNotFoundException, Exception{
 		students = new ArrayList<Student>();
-
 		FileReader read = new FileReader(fileName);
 		Scanner scan = new Scanner(read);
 		String strNum = "", name = "";
@@ -31,15 +26,12 @@ public class ScoreTrakker {
 				}
 				if(!space){
 					throw new Exception("'" + name + "'" + " does not include a first and last name");
-					
-					//System.out.println(name + " does not include a first and a last name");
 				}
 				space = false;
 				strNum = scan.nextLine();
 				score = Integer.parseInt(strNum);
 				students.add(new Student(name, score));
 			}
-
 			catch(NumberFormatException n){
 				System.out.println("Incorrect format for " + name + " not a valid score: " + n.getMessage());
 				System.out.println();
