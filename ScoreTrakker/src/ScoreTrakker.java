@@ -7,26 +7,34 @@ import java.util.Scanner;
 
 public class ScoreTrakker {
 	private ArrayList<Student> students;
-	private String[] files = {"scores.txt", "badscore.txt", "nofile.txt" };
+	private String[] files = {"scores.txt", "badscore.txt", "nofile.txt", "badname.txt" };
 
 	public ScoreTrakker() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void loadDataFromFile(String fileName) throws FileNotFoundException{
+	public void loadDataFromFile(String fileName) throws FileNotFoundException, Exception{
 		students = new ArrayList<Student>();
 
-		FileReader read = null;
-		Scanner scan = null;
-		Scanner scanInt = null;
+		FileReader read = new FileReader(fileName);
+		Scanner scan = new Scanner(read);
 		String strNum = "", name = "";
 		int score = 0;
 		while(scan.hasNextLine()){
 			try {
-				read = new FileReader(fileName);
-				scan = new Scanner(read);
-
 				name = scan.nextLine();
+				boolean space = false;
+				for(int i = 0; i<name.length(); i++){
+					char c = name.charAt(i);
+					if(c == ' ')
+						space = true;
+				}
+				if(!space){
+					throw new Exception("'" + name + "'" + " does not include a first and last name");
+					
+					//System.out.println(name + " does not include a first and a last name");
+				}
+				space = false;
 				strNum = scan.nextLine();
 				score = Integer.parseInt(strNum);
 				students.add(new Student(name, score));
@@ -34,14 +42,17 @@ public class ScoreTrakker {
 
 			catch(NumberFormatException n){
 				System.out.println("Incorrect format for " + name + " not a valid score: " + n.getMessage());
+				System.out.println();
 			}
 		}
 	}
 
 	public void printInOrder(){
+		System.out.println("Student Score List");
 		Collections.sort(students);
 		for(Student s: students)
 			System.out.println(s);
+		System.out.println();
 
 	}
 
@@ -52,6 +63,9 @@ public class ScoreTrakker {
 				printInOrder();
 			}catch(FileNotFoundException e){
 				System.out.println("Can't open file: " + e.getMessage());
+			}catch(Exception ex){
+				System.out.println(ex.getMessage());
+				System.out.println();
 			}
 		}
 	}
