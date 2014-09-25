@@ -1,1 +1,7 @@
+*.class
+.project
+.classpatch
+.settings/
+/bin
+/bin
 /bin
