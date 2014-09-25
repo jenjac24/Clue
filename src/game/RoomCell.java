@@ -19,7 +19,4 @@ public class RoomCell extends BoardCell{
 		return doorDirection;
 	}
 
-	public void setDoorDirection(DoorDirection doorDirection) {
-		this.doorDirection = doorDirection;
-	}
 }
