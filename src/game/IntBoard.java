@@ -8,7 +8,12 @@ public class IntBoard {
 	
 	
 	public IntBoard(){
+		Set targets = null;
+	}
+	
+	public Set<BoardCell> calcTargets(BoardCell cell, int numberOfMoves){
 		
+		return null;
 	}
 	
 	public Set<BoardCell> getTargets(){
@@ -17,7 +22,12 @@ public class IntBoard {
 		return targets;
 	}
 	
-	public LinkedList<BoardCell> getAdjList(){
+	public BoardCell getCell(int x, int y){
+		BoardCell cell = null;
+		return cell;
+	}
+	
+	public LinkedList<BoardCell> getAdjList(BoardCell cell){
 		LinkedList<BoardCell> list = null;
 		return list;
 	}
