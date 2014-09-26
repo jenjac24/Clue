@@ -15,8 +15,8 @@ import game.IntBoard;
 public class IntBoardTests {
 	static IntBoard board;
 	@BeforeClass
-	public void setBoard(){
-		IntBoard board = new IntBoard();
+	public static void setBoard(){
+		board = new IntBoard();
 	}
 	
 	@Test
@@ -27,6 +27,17 @@ public class IntBoardTests {
 		Assert.assertTrue(testList.contains(board.getCell(1, 0)));
 		Assert.assertTrue(testList.contains(board.getCell(0, 1)));
 		Assert.assertEquals(2, testList.size());
+	}
+	
+	@Test
+	public void testTargets0_0_1() //tests upper left corner
+	{
+		BoardCell cell = board.getCell(0, 0);
+		board.calcTargets(cell, 1);
+		Set targets = board.getTargets();
+		Assert.assertEquals(2, targets.size());
+		Assert.assertTrue(targets.contains(board.getCell(0, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(1, 0)));
 	}
 	
 	@Test
@@ -60,9 +71,9 @@ public class IntBoardTests {
 	}
 	
 	@Test
-	public void testTargets22_0_3() //tests lower left corner
+	public void testTargets21_0_3() //tests lower left corner
 	{
-		BoardCell cell = board.getCell(22, 0);
+		BoardCell cell = board.getCell(21, 0);
 		board.calcTargets(cell, 3);
 		Set targets = board.getTargets();
 		Assert.assertEquals(6, targets.size());
@@ -75,9 +86,9 @@ public class IntBoardTests {
 	}
 	
 	@Test
-	public void testTargets22_23_3() //tests bottom right corner
+	public void testTargets21_23_3() //tests bottom right corner
 	{
-		BoardCell cell = board.getCell(22, 23);
+		BoardCell cell = board.getCell(21, 23);
 		board.calcTargets(cell, 3);
 		Set targets = board.getTargets();
 		Assert.assertEquals(6, targets.size());

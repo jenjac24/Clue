@@ -1,7 +1,24 @@
 package game;
 
-abstract public class BoardCell {
-	int rows, columns;
+ public class BoardCell {
+	int row, column;
+	
+	public BoardCell(){
+		
+	}
+	
+	public BoardCell(int row, int column){
+		this.row = row;
+		this.column = column;
+	}
+	
+	public int row(){
+		return row;
+	}
+	public int column(){
+		return column;
+	}
+	
 	public Boolean isWalkway(){
 		return false;
 	}
