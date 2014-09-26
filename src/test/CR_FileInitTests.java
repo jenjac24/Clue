@@ -27,7 +27,7 @@ public class CR_FileInitTests {
 	public static final int NUM_COLUMNS = 23;
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws Exception {
 		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
