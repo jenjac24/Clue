@@ -14,67 +14,86 @@ public class Board {
 	private int numRows;
 	private int numColumns;
 
-	public Board(){
-		loadBoardConfig();
-		//grid = new BoardCell[numRows][numColumns];
-		//think we initialize whether it is a roomcell or boardcell when we load the file
+	public Board(String layoutFile){
+		try {
+			loadBoardConfig(layoutFile);
+		} catch (BadConfigFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
-	public void loadBoardConfig(){
+	public void loadBoardConfig(String layoutFile) throws BadConfigFormatException{
 		int rows = 0;
 		int cols = 0;
-		int i =0, j=0, count =0;
+		int row =0;
 		String c;
 		String line;
 		String comma = ",";
+		String[] arr;
+		
 		char first, second;
-		FileReader read;
+		FileReader read, read2;
 		try {
-			read = new FileReader("ClueMap.csv");
+			read = new FileReader(layoutFile);
 			Scanner scan = new Scanner(read);
-			System.out.println("hello");
-			scan.useDelimiter(comma);
 			while(scan.hasNextLine()){
 				rows++;
-				if(!scan.hasNextLine()){
-					System.out.println("lala");
-					System.out.println(scan.next());
-					while(scan.hasNext()){
-						System.out.println("ro");
-						cols++;
-						c = scan.next();
-					}
-				}
 				line = scan.nextLine();
-				
+				if(rows==1){
+					arr = line.split(",");
+					cols = arr.length;
+				}
 			}
 			numRows = rows;
 			numColumns = cols;
 			System.out.println(numRows);
-			System.out.println(numColumns);
+			System.out.println(numColumns + " numcols");
 			//if numRows doesn't equal 23 or 22, throw an exception, same for numColumns
+			if(numRows!=22) throw new BadConfigFormatException(numRows);
+			if(numColumns!=23) throw new BadConfigFormatException(numColumns);
 			grid = new BoardCell[numRows][numColumns];
-			Scanner scan2 = new Scanner(read);
-			scan2.useDelimiter(comma);
-			while(scan2.hasNext()){
-				if(count%numColumns==0) {
-					i++;
-					j=-1;
+			read2 = new FileReader("ClueMap.csv");
+			Scanner scan2 = new Scanner(read2);
+			String[][] chars = new String[numRows][numColumns];
+			
+			while(scan2.hasNextLine()){
+				line = scan2.nextLine();
+				//now i split the string with commas and then 
+				arr = line.split(",");
+				chars[row] = arr;
+				row++;
+			}
+			/*for(int i =0; i<chars.length; i++){
+				for(int j =0; j<chars[0].length; j++){
+					System.out.print(chars[i][j]);
 				}
-				j++;
-				count++;
-				c = scan2.next();
-				if(c.length() > 1){
-					second = c.charAt(1);
-					fillGrid(i, j, c.charAt(0), determineDirection(second), true);
-					System.out.println(c + " first if");
-				}
-				else {
-					first = c.charAt(0);
-					fillGrid(i,j,first, DoorDirection.NONE, false);
-					System.out.println(c + " second if");
+				System.out.println();
+			}*/
+			
+			for(int i = 0; i<chars.length; i++){
+				for(int j=0; j<chars[0].length; j++){
+					c = chars[i][j];
+					if(c.length() > 1){
+						second = c.charAt(1);
+						fillGrid(i, j, c.charAt(0), determineDirection(second), true);
+						System.out.println(c + " first if");
+					}
+					else {
+						first = c.charAt(0);
+						fillGrid(i,j,first, DoorDirection.NONE, false);
+						System.out.println(c + " second if");
+					}
 				}
 			}
+			
+			//throw an error if not all of the lengths of the second arrays are the same
+			for(int i =0; i<chars.length; i++){
+				if(chars.length!=numColumns) throw new BadConfigFormatException(chars.length);
+			}
+			scan2.close();
+			scan. close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,9 +135,9 @@ public class Board {
 		return numColumns;
 	}
 
-	public static void main(String[] args){
-		Board board = new Board();
-		board.loadBoardConfig();
-	}
+	/*public static void main(String[] args) throws BadConfigFormatException{
+		Board board = new Board("ClueMap.csv");
+		//board.loadBoardConfig();
+	}*/
 
 }
