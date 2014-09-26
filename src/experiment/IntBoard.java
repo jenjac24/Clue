@@ -15,7 +15,8 @@ private int[][] grid;
 private Map<BoardCell,LinkedList<BoardCell>> adjacentCellsMap;
 private Set<BoardCell> visited;
 private Set<BoardCell> targets;
-
+public final static int ROWS = 4;
+public final static int COLS =4;
 //constructor
 public IntBoard(int row, int col) {
 	adjacentCells = new LinkedList<BoardCell>();
@@ -23,7 +24,7 @@ public IntBoard(int row, int col) {
 	adjacentCellsMap = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	visited = new HashSet();
 	targets = new HashSet();
-
+	
 
 }
 
@@ -33,32 +34,40 @@ public BoardCell getCell(int row, int col) {
 }
 
 //calcAdjacencies, calculates the adjacency lists for each grid cell, store in a map data structure
-public void caclAdjacencies() {
-	for(int i = 0; i < 4; i++) {
-		for(int j =0; j < 4; j++) {
-			BoardCell currentLocation = new BoardCell(i,j);
+public void calcAdjacencies() {
+	//System.out.println("This is from calcAdjacencies");
+	for(int i = 0; i < ROWS; i++) {
+		for(int j =0; j < COLS; j++) {
+			BoardCell currentLocation = getCell(i,j);
 			LinkedList<BoardCell> adjList = new LinkedList<BoardCell>();
-			if(i+1 < 4) {
+			
+			//System.out.println("CurrentLocation: " + currentLocation);
+			if(i+1 < ROWS) {
 				BoardCell tempCell = new BoardCell(i+1,j);
 				adjList.add(tempCell);
+				//System.out.println("Just added this point to adjList: " + (i+1) + "," + j);
 				
 			}
 			if(i-1 >= 0) {
 				BoardCell tempCell = new BoardCell(i-1,j);
 				adjList.add(tempCell);
+				//System.out.println("Just added this point to adjList: " + (i-1) + "," + j);
 				
 			}
-			if(j+1 < 4) {
+			 if(j+1 < COLS) {
 				BoardCell tempCell = new BoardCell(i,j+1);
 				adjList.add(tempCell);
-				
+				//System.out.println("Just added this point to adjList: " + i + "," + (j+1));
 			}
 			if(j-1 >= 0) {
 				BoardCell tempCell = new BoardCell(i,j-1);
 				adjList.add(tempCell);
+				//System.out.println("Just added this point to adjList: " + i + "," + (j-1));
 				
 			}
+			//System.out.println("adjList size: " + adjList.size());
 			adjacentCellsMap.put(currentLocation, adjList);
+			//System.out.println("Map: " + adjacentCellsMap.get(currentLocation));
 			
 		}
 	}
@@ -91,7 +100,20 @@ public Set<BoardCell> getTargets() {
 }
 //getAdjList returns the adjacency list for one cell, return type = LinkedList<BoardCell>
 public LinkedList<BoardCell> getAdjList(BoardCell cell) {
+	calcAdjacencies();
 	
+	
+	System.out.println("This is from getAdjList: cell:" + cell);
+	System.out.println("Is cell a key in map? ");
+	if(adjacentCellsMap.containsKey(cell)) {
+		System.out.println("Key is in map!"); 
+	}
+	else {
+	System.out.println("Key is not in map!");
+	}
+	System.out.println("LinkedList value from key cell:" + adjacentCellsMap.get(cell));
+	adjacentCells = adjacentCellsMap.get(cell);
+	System.out.println("size of map: " + adjacentCellsMap.size());
 	return adjacentCells;
 	
 }
