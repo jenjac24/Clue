@@ -31,4 +31,7 @@ package game;
 	public void draw(){
 		
 	}
+	public String toString(){
+		return row + " " + column;
+	}
 }

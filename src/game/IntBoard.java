@@ -39,7 +39,6 @@ public class IntBoard {
 	}
 	
 	public Set<BoardCell> getTargets(){
-		Set<BoardCell> targets = null;
 		
 		return targets;
 	}
@@ -52,13 +51,13 @@ public class IntBoard {
 		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
 		int row = cell.row();
 		int column = cell.column();
-		if((row - 1) >= 0)
+		if(row != 0 && !visited.contains(getCell(row - 1, column))) 
 			list.add(getCell(row - 1, column));
-		if((row + 1) <= (BOARD_LENGTH - 1))
+		if(row != (BOARD_LENGTH - 1) && !visited.contains(getCell(row + 1, column))) 
 			list.add(getCell(row + 1, column));
-		if((column - 1) >= 0)
+		if(column != 0 && !visited.contains(getCell(row, column - 1)))
 			list.add(getCell(row, column - 1));
-		if((column + 1) <= (BOARD_WIDTH - 1))
+		if(column != (BOARD_WIDTH - 1) && !visited.contains(getCell(row, column + 1)))
 			list.add(getCell(row, column + 1));
 		return list;
 	}
