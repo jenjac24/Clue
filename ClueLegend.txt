@@ -1,4 +1,4 @@
-K, kitchen
+K, Kitchen
 L, Library
 S, Study
 O, Lounge
