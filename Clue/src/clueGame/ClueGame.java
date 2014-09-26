@@ -19,7 +19,10 @@ public class ClueGame {
 	public void loadConfigFiles(){
 		board.loadBoardConfig();
 		loadLegend();
-		
+	}
+	
+	public String getLayoutFile(){
+		return layoutFile;
 	}
 	
 	public Board getBoard(){
@@ -28,6 +31,11 @@ public class ClueGame {
 	
 	public void loadLegend(){
 		//load the legend file
+	}
+
+	public void loadRoomConfig() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
