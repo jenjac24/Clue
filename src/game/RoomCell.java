@@ -5,6 +5,12 @@ public class RoomCell extends BoardCell{
 	private DoorDirection doorDirection;
 	private char roomInitial;
 	
+	RoomCell(int row, int column, char room, DoorDirection d){
+		super(row,column);
+		roomInitial = room;
+		doorDirection = d;
+		}
+	
 	@Override
 	public Boolean isRoom(){
 		return true;
@@ -14,9 +20,25 @@ public class RoomCell extends BoardCell{
 	public void draw(){
 		
 	}
-
+	
+	@Override
+	public Boolean isDoorway(){
+		if (doorDirection.equals( DoorDirection.NONE)){
+			return false;
+		}
+		return true;
+	}
+	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
+	}
+
+	public char getInitial() {
+		return roomInitial;
+	}
+
+	public void setRoomInitial(char roomInitial) {
+		this.roomInitial = roomInitial;
 	}
 
 }

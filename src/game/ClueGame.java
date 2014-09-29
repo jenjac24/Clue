@@ -14,8 +14,13 @@ public class ClueGame {
 		board = new Board();
 	}
 	
-	public void loadConfigFiles() throws Exception{
-		board.loadBoardConfig(layout,legend);
+	public void loadConfigFiles() {
+		try {
+			board.loadBoardConfig(layout,legend);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Board getBoard() {
