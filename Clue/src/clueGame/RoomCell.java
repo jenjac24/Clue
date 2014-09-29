@@ -8,7 +8,9 @@ public class RoomCell extends BoardCell {
 	private char roomInitial;
 	private boolean isDoor;
 	
-	public RoomCell(char c, DoorDirection dir, boolean door){
+	public RoomCell(int rows, int cols, char c, DoorDirection dir, boolean door){
+		row = rows;
+		col = cols;
 		doorDirection = dir;
 		roomInitial = c;
 		isDoor = door;
@@ -26,6 +28,14 @@ public class RoomCell extends BoardCell {
 	
 	public char getInitial(){
 		return roomInitial;
+	}
+
+
+	@Override
+	public String toString() {
+		super.toString();
+		return "RoomCell [doorDirection=" + doorDirection + ", roomInitial="
+				+ roomInitial + ", isDoor=" + isDoor + "]";
 	}
 	
 	/*@Override

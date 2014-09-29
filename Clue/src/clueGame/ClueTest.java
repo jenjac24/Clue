@@ -21,15 +21,16 @@ public class ClueTest {
 	@BeforeClass
 	public static void initialize(){
 		ClueGame game = new ClueGame("ClueMap.csv", "legend.txt");
-		game.loadConfigFiles();
+		game.loadRoomConfig();
 		board = game.getBoard();
 	}
 
-	/*
 	//test that we have the correct number of rooms(11)
 	@Test
 	public void roomsHasCorrectNumRooms() {
+		System.out.println("Testing");
 		Map<Character, String> rooms = board.getRooms();
+		System.out.println("board.getRooms(): " + board.getRooms());
 		// Ensure we read the correct number of rooms
 		assertEquals(NUM_ROOMS, rooms.size());
 		// Test retrieving a few from the hash, including the first
@@ -40,7 +41,7 @@ public class ClueTest {
 		assertEquals("Dining room", rooms.get('D'));
 		assertEquals("Walkway", rooms.get('W'));
 	}
-*/
+
 	//test that we have the correct number of rooms and columns
 	@Test
 	public void testNumRowsandCols() {
@@ -56,23 +57,23 @@ public class ClueTest {
 		RoomCell room = board.getRoomCellAt(4, 3);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
-		room = board.getRoomCellAt(4, 8);
+		room = board.getRoomCellAt(8, 7);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
-		room = board.getRoomCellAt(15, 18);
+		room = board.getRoomCellAt(3, 5);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.LEFT, room.getDoorDirection());
-		room = board.getRoomCellAt(14, 11);
+		room = board.getRoomCellAt(3, 5);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 		// Test that room pieces that aren't doors know it
-		room = board.getRoomCellAt(14, 14);
+		room = board.getRoomCellAt(17, 12);
 		assertFalse(room.isDoorway());	
 		// Test that walkways are not doors
-		BoardCell cell = board.getCellAt(0, 6);
+		BoardCell cell = board.getCellAt(0, 4);
 		assertFalse(cell.isDoorway());	
 	}
-/*
+
 	//test that we have the correct number of doorways that we have on our map
 	@Test
 	public void testCountOfNumDoorways(){
@@ -92,15 +93,14 @@ public class ClueTest {
 	//test that the room initial is correct for various cells
 	@Test
 	public void testCorrectInitial(){
-		assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
-		assertEquals('R', board.getRoomCellAt(4, 8).getInitial());
-		assertEquals('B', board.getRoomCellAt(9, 0).getInitial());
+		assertEquals('C', board.getRoomCellAt(11, 0).getInitial());
+		assertEquals('R', board.getRoomCellAt(7, 19).getInitial());
+		assertEquals('B', board.getRoomCellAt(20, 0).getInitial());
 		assertEquals('O', board.getRoomCellAt(21, 22).getInitial());
-		assertEquals('K', board.getRoomCellAt(21, 0).getInitial());
+		assertEquals('K', board.getRoomCellAt(7, 1).getInitial());
 	}
-
 	//test that en exception is thrown when it should be
-	@Test
+	@Test (expected = BadConfigFormatException.class)
 	public void testExceptionThrownForBad(){
 		//make it throw an exception and test to see if it did
 		// overloaded Game ctor takes config file names
@@ -112,7 +112,7 @@ public class ClueTest {
 		game.getBoard().loadBoardConfig();
 	}
 
-	@Test
+	@Test (expected = BadConfigFormatException.class)
 	public void testExceptionThrownForRoom(){
 		//make it throw an exception and test to see if it did
 		// overloaded Board ctor takes config file name
@@ -121,7 +121,7 @@ public class ClueTest {
 		game.getBoard().loadBoardConfig();
 	}
 
-	@Test
+	@Test (expected = BadConfigFormatException.class)
 	public void testExceptionThrownLegend(){
 		//make it throw an exception and test to see if it did
 		// overloaded Board ctor takes config file name
@@ -129,5 +129,5 @@ public class ClueTest {
 		game.loadRoomConfig();
 		game.getBoard().loadBoardConfig();
 	}
-	*/
+	
 }

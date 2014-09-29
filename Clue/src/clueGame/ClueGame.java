@@ -7,26 +7,22 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ClueGame {
-	public Map<Character, String> rooms;
-	private Board board;
+	public static Map<Character, String> rooms;
+	private static Board board;
 	private String layoutFile, legendFile;
 
 	public ClueGame(String layout, String legend){
 		layoutFile = layout;
 		legendFile = legend;
 		rooms = new HashMap<Character, String>();
-		board = new Board(layoutFile);
+		//board = new Board(layoutFile, rooms);
 		loadConfigFiles();
 	}
 
 	public void loadConfigFiles(){
 		loadRoomConfig();
-		try {
-			board.loadBoardConfig(layoutFile);
-		} catch (BadConfigFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		board = new Board(layoutFile, rooms);
+		board.loadBoardConfig();
 	}
 
 	public String getLayoutFile(){
@@ -40,31 +36,34 @@ public class ClueGame {
 	public void loadRoomConfig() {
 		// TODO Auto-generated method stub
 		//load legend
-		try {
+		/*try {
 			FileReader reader = new FileReader(legendFile);
 			Scanner in = new Scanner(reader);
-			in.useDelimiter(", *");
+			//in.useDelimiter(", ");
 			String temp;
 			Character tempChar;
 			String tempRoom;
-			while(in.hasNext()) {
-				System.out.println("loop");
-				temp = in.next();
-				tempChar = temp.charAt(0);
-				tempRoom = in.next();
-				System.out.println("Char: " + tempChar + " Room: " + tempRoom);
-				rooms.put(tempChar,tempRoom);
+			String[][] arr = new String[11][2];
+			int row= 0;
+			while(in.hasNextLine()) {
+				temp = in.nextLine();
+				arr[row] = temp.split(",");
+				row++;
+			}
+			for(int i = 0; i<arr.length; i++){
+				for(int j =0; j<arr[0].length-1; j++){
+					tempChar = arr[i][j].charAt(0);
+					tempRoom = arr[i][j+1];
+					System.out.println("Char: " + tempChar + " Room: " + tempRoom);
+					rooms.put(tempChar,tempRoom);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-
-	}
-	
-	public static void main(String[] args){
-		ClueGame clue = new ClueGame("ClueMap.csv", "legend.txt");
+*/
 	}
 
 }
