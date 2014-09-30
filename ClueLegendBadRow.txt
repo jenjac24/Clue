@@ -1,6 +1,6 @@
 K, Kitchen
 L, Library
-S, Study
+S, Q , Study
 O, Lounge
 C, Conservatory
 B, Ballroom

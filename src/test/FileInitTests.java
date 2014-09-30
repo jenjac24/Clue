@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import junit.framework.Assert;
 import game.BadConfigFormatException;
@@ -15,17 +16,17 @@ import game.RoomCell;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class LoadRoomLegendTests {
+public class FileInitTests {
 	private static Board board;
 	public static final int NUM_ROOMS = 11;
 	public static final int NUM_ROWS = 22;
-	public static final int NUM_COLUMNS = 23;
+	public static final int NUM_COLUMNS = 24;
 	public static final int NUM_DOORS = 23;
 	public static final int NUM_CELLS = NUM_ROWS*NUM_COLUMNS;
 	
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
+		ClueGame game = new ClueGame("OurClueLayout.csv", "OurClueLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
 	}
@@ -33,7 +34,7 @@ public class LoadRoomLegendTests {
 	@Test
 	public void testRoomMap() {
 		int expected = NUM_ROOMS;
-		int actual = board.getRooms();
+		int actual = board.getNumRooms();
 		assertEquals(expected, actual);
 	}
 	
@@ -74,8 +75,8 @@ public class LoadRoomLegendTests {
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
 		//testing that walkways aren't doors
-		room = board.getRoomCellAt(4, 3);
-		assertFalse(room.isDoorway());
+		BoardCell hall = board.getCellAt(4, 3);
+		assertFalse(hall.isDoorway());
 		//testing room spaces that aren't doorways
 		room = board.getRoomCellAt(21,23);
 		assertFalse(room.isDoorway());
@@ -107,31 +108,30 @@ public class LoadRoomLegendTests {
 		assertEquals('L', board.getRoomCellAt(21, 20).getInitial());
 		assertEquals('O', board.getRoomCellAt(6, 6).getInitial());
 		assertEquals('S', board.getRoomCellAt(2, 13).getInitial());
-		assertEquals('W', board.getRoomCellAt(7, 23).getInitial());
 		assertEquals('X', board.getRoomCellAt(9, 19).getInitial());
 	}
 	
 	//test for an invalid initial in the layout
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadInitial() throws BadConfigFormatException, FileNotFoundException {
-		ClueGame game = new ClueGame("ClueLayoutBadInitial.csv", "ClueLegend.txt");
+	public void testBadInitial() throws BadConfigFormatException, IOException {
+		ClueGame game = new ClueGame("ClueLayoutBadInitial.csv", "OurClueLegend.txt");
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig();
+		game.getBoard().loadBoardConfig("ClueLayoutBadInitial.csv", "OurClueLegend.txt");
 	}
 	
-	//test for bad number of characters in legend file
+	//test for bad number of columns in legend file row
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadLegendRow() throws BadConfigFormatException, FileNotFoundException {
-		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegendBadRow.txt");
+	public void testBadLegendRow() throws BadConfigFormatException, IOException {
+		ClueGame game = new ClueGame("OurClueLayout.csv", "ClueLegendBadRow.txt");
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig();
+		game.getBoard().loadBoardConfig("OurClueLayout.csv", "ClueLegendBadRow.txt");
 	}
 	
 	//test for walkway having a door
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadWalkway() throws BadConfigFormatException, FileNotFoundException {
-		ClueGame game = new ClueGame("ClueLayoutBadHallway.csv", "ClueLegend.txt");
+	public void testBadWalkway() throws BadConfigFormatException, IOException {
+		ClueGame game = new ClueGame("ClueLayoutBadHallway.csv", "OurClueLegend.txt");
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig();
+		game.getBoard().loadBoardConfig("ClueLayoutBadHallway.csv", "OurClueLegend.txt");
 	}
 }
