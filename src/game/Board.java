@@ -19,7 +19,6 @@ public class Board {
 		FileReader reader1 = new FileReader(layoutFile);
 		Scanner in = new Scanner(reader);
 		Scanner in1 = new Scanner(reader1);
-		Scanner in2 = new Scanner(reader1);
 		//Creates legend map
 		while (in.hasNext()){
 			String tempChar = in.next();
@@ -49,7 +48,6 @@ public class Board {
 			}
 			tempIn1.close();
 			if (!tempColumns.equals(numColumns)){
-				in2.close();
 				in1.close();
 				throw new BadConfigFormatException(0);
 			}
@@ -59,11 +57,19 @@ public class Board {
 		in1.close();
 		String tempCell = "";
 		char tempDirection = 'A';
+		FileReader reader2 = new FileReader(layoutFile);
+		Scanner in2 = new Scanner(reader2);
+		in2.useDelimiter(",");
 		//adds values to layout from the file
 		for (int row = 0; row < numRows; row++){
-			for (int column = 0; column < numColumns && in2.hasNext(); column++){
+			for (int column = 0; column < numColumns; column++){
+				if (!in2.hasNext()){
+					in2.close();
+					throw new BadConfigFormatException(0);
+				}
 				tempCell = in2.next();
-				if (!rooms.containsKey(tempCell)){
+				System.out.println(tempCell);
+				if (!rooms.containsKey(tempCell.charAt(0))){
 					in2.close();
 					throw new BadConfigFormatException(2);
 				}
@@ -97,6 +103,8 @@ public class Board {
 		}
 		in2.close();
 		reader.close();
+		reader1.close();
+		reader2.close();
 	}
 	public int getNumRows() {
 		return numRows;
@@ -120,6 +128,7 @@ public class Board {
 		return layout[row][col];
 	}
 	public RoomCell getRoomCellAt(int row, int col) {
-		return (RoomCell) layout[row][col];
+		RoomCell tempCell = (RoomCell) layout[row][col];
+		return tempCell;
 	}
 }
