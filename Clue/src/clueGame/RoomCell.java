@@ -6,7 +6,13 @@ public class RoomCell extends BoardCell {
 	
 	private DoorDirection doorDirection;
 	private char roomInitial;
+	private boolean isDoor;
 	
+	public RoomCell(char c, DoorDirection dir, boolean door){
+		doorDirection = dir;
+		roomInitial = c;
+		isDoor = door;
+	}
 	
 	
 	@Override
