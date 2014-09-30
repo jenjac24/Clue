@@ -58,7 +58,6 @@ public class Board {
 			}
 			numRows++;
 		}
-		System.out.println("Number of rows: " + numRows);
 		layout = new BoardCell[numRows][numColumns];
 		in1.close();
 		String tempCell = "";
@@ -79,7 +78,6 @@ public class Board {
 				else{
 				tempCell = in2.next();
 				}
-				System.out.println(row + " " + column + " " + tempCell);
 				if (!rooms.containsKey(tempCell.charAt(0))){
 					in2.close();
 					throw new BadConfigFormatException(2);
@@ -142,10 +140,9 @@ public class Board {
 		RoomCell tempCell = new RoomCell();
 		if (layout[row][col] instanceof RoomCell){
 			tempCell = (RoomCell) layout[row][col];
-			System.out.println(row + " " + col + " " + tempCell.getInitial());
 			return tempCell;
 		}
-		else{System.out.println(row + " " + col + " " + tempCell.getInitial());
+		else{
 		return tempCell;
 		}
 	}

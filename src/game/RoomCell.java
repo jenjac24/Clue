@@ -27,7 +27,7 @@ public class RoomCell extends BoardCell{
 	
 	@Override
 	public Boolean isDoorway(){
-		if (doorDirection.equals( DoorDirection.NONE)){
+		if (doorDirection.equals(DoorDirection.NONE)){
 			return false;
 		}
 		return true;
