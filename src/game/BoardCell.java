@@ -19,6 +19,7 @@ package game;
 		return column;
 	}
 	
+	
 	public Boolean isWalkway(){
 		return false;
 	}
