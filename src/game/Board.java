@@ -24,6 +24,11 @@ public class Board {
 			String tempChar = in.next();
 			String tempString = in.nextLine();
 			tempString = tempString.substring(1);
+			if (tempString.contains(",")) {
+				in.close();
+				in1.close();
+				throw new BadConfigFormatException(1);
+			}
 			rooms.put(tempChar.charAt(0), tempString);
 		}
 		in.close();
@@ -53,6 +58,7 @@ public class Board {
 			}
 			numRows++;
 		}
+		System.out.println("Number of rows: " + numRows);
 		layout = new BoardCell[numRows][numColumns];
 		in1.close();
 		String tempCell = "";
@@ -67,13 +73,18 @@ public class Board {
 					in2.close();
 					throw new BadConfigFormatException(0);
 				}
+				if (column == numColumns-1){
+					tempCell = in2.nextLine().substring(1);
+				}
+				else{
 				tempCell = in2.next();
-				System.out.println(tempCell);
+				}
+				System.out.println(row + " " + column + " " + tempCell);
 				if (!rooms.containsKey(tempCell.charAt(0))){
 					in2.close();
 					throw new BadConfigFormatException(2);
 				}
-				if (tempCell.equals("W")){
+				if (tempCell.charAt(0) == 'W'){
 					if (tempCell.length() > 1){
 						in2.close();
 						throw new BadConfigFormatException(3);
@@ -128,7 +139,14 @@ public class Board {
 		return layout[row][col];
 	}
 	public RoomCell getRoomCellAt(int row, int col) {
-		RoomCell tempCell = (RoomCell) layout[row][col];
+		RoomCell tempCell = new RoomCell();
+		if (layout[row][col] instanceof RoomCell){
+			tempCell = (RoomCell) layout[row][col];
+			System.out.println(row + " " + col + " " + tempCell.getInitial());
+			return tempCell;
+		}
+		else{System.out.println(row + " " + col + " " + tempCell.getInitial());
 		return tempCell;
+		}
 	}
 }

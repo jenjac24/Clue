@@ -11,6 +11,10 @@ public class RoomCell extends BoardCell{
 		doorDirection = d;
 		}
 	
+	public RoomCell() {
+
+	}
+
 	@Override
 	public Boolean isRoom(){
 		return true;
@@ -32,7 +36,7 @@ public class RoomCell extends BoardCell{
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
-
+	
 	public char getInitial() {
 		return roomInitial;
 	}
