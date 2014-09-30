@@ -5,7 +5,10 @@ import java.io.PrintWriter;
 
 public class BadConfigFormatException extends Exception {
 	public BadConfigFormatException() {}
-	public BadConfigFormatException(int i) throws FileNotFoundException{
+	public BadConfigFormatException(String msg){
+		super(msg);
+	}
+	public BadConfigFormatException(int i) throws FileNotFoundException, BadConfigFormatException{
 		String msg = "";
 		switch(i){
 		case 0:
@@ -23,5 +26,6 @@ public class BadConfigFormatException extends Exception {
 		PrintWriter ErrorLog = new PrintWriter("logfile.txt");
 		ErrorLog.println(msg);
 		ErrorLog.close();
+		throw new BadConfigFormatException(msg);
 	}
 }

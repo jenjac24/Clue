@@ -2,7 +2,9 @@ package game;
 
 import game.RoomCell.DoorDirection;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,8 +13,8 @@ public class Board {
 	private BoardCell[][] layout; //size of layout will be determined upon reading file
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
-	public void loadBoardConfig(String layoutFile, String legend) throws Exception{
-		Map<Character,String> rooms = new HashMap<Character,String>();
+	public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
+		rooms = new HashMap<Character,String>();
 		FileReader reader = new FileReader(legend);
 		FileReader reader1 = new FileReader(layoutFile);
 		Scanner in = new Scanner(reader);
@@ -22,6 +24,7 @@ public class Board {
 		while (in.hasNext()){
 			String tempChar = in.next();
 			String tempString = in.nextLine();
+			tempString = tempString.substring(1);
 			rooms.put(tempChar.charAt(0), tempString);
 		}
 		in.close();
@@ -35,20 +38,40 @@ public class Board {
 			numColumns++;
 		}
 		tempIn.close();
+		Scanner tempIn1;
 		while (in1.hasNextLine()){
-			in1.nextLine();
+			Integer tempColumns = 0;
+			tempIn1 = new Scanner(in1.nextLine());
+			tempIn1.useDelimiter(",");
+			while (tempIn1.hasNext()){
+				tempIn1.next();
+				tempColumns++;
+			}
+			tempIn1.close();
+			if (!tempColumns.equals(numColumns)){
+				in2.close();
+				in1.close();
+				throw new BadConfigFormatException(0);
+			}
 			numRows++;
 		}
 		layout = new BoardCell[numRows][numColumns];
 		in1.close();
-		in2.useDelimiter(",");
 		String tempCell = "";
 		char tempDirection = 'A';
 		//adds values to layout from the file
 		for (int row = 0; row < numRows; row++){
 			for (int column = 0; column < numColumns && in2.hasNext(); column++){
 				tempCell = in2.next();
+				if (!rooms.containsKey(tempCell)){
+					in2.close();
+					throw new BadConfigFormatException(2);
+				}
 				if (tempCell.equals("W")){
+					if (tempCell.length() > 1){
+						in2.close();
+						throw new BadConfigFormatException(3);
+					}
 					layout[row][column] = new BoardCell(row,column);
 				}
 				else {

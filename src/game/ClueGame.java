@@ -1,5 +1,6 @@
 package game;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class ClueGame {
@@ -17,13 +18,18 @@ public class ClueGame {
 	public void loadConfigFiles() {
 		try {
 			board.loadBoardConfig(layout,legend);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (BadConfigFormatException e) {
+			System.out.println(e.toString());
+		} catch (IOException e){
+			System.out.println(e.toString());
 		}
 	}
 
 	public Board getBoard() {
 		return board;
+	}
+	
+	public void loadRoomConfig() {
+		loadConfigFiles();
 	}
 }
