@@ -23,9 +23,6 @@ public class BadConfigFormatException extends Exception {
 		case 3:
 			msg = "Error, hallway has a door";
 		}
-		PrintWriter ErrorLog = new PrintWriter("logfile.txt");
-		ErrorLog.println(msg);
-		ErrorLog.close();
 		throw new BadConfigFormatException(msg);
 	}
 }

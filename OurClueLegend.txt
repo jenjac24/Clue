@@ -4,7 +4,8 @@ S, Study
 O, Lounge
 C, Conservatory
 B, Ballroom
-A, Billard Room
-D, Dining room
+A, Billiard Room
+D, Dining Room
 H, Hall
 X, Closet
+W, Walkway

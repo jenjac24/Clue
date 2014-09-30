@@ -1,6 +1,7 @@
 package game;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 public class ClueGame {
@@ -16,13 +17,18 @@ public class ClueGame {
 	}
 	
 	public void loadConfigFiles() {
+		PrintWriter ErrorLog = null;
 		try {
+			ErrorLog = new PrintWriter("logfile.txt");
 			board.loadBoardConfig(layout,legend);
 		} catch (BadConfigFormatException e) {
 			System.out.println(e.toString());
+			ErrorLog.println(e.toString());
 		} catch (IOException e){
 			System.out.println(e.toString());
+			ErrorLog.println(e.toString());
 		}
+		ErrorLog.close();
 	}
 
 	public Board getBoard() {

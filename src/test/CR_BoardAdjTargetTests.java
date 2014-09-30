@@ -1,4 +1,4 @@
-package clueTests;
+package test;
 
 import java.util.LinkedList;
 import java.util.Set;
@@ -7,17 +7,18 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import clueGame.Board;
-import clueGame.BoardCell;
-import clueGame.ClueGame;
+import game.Board;
+import game.BoardCell;
+import game.ClueGame;
+import game.IntBoard;
 
 public class CR_BoardAdjTargetTests {
-	private static Board board;
+	private static IntBoard board;
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame();
+		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
 		game.loadConfigFiles();
-		board = game.getBoard();
+		board = game.getIntBoard();
 		board.calcAdjacencies();
 	}
 
