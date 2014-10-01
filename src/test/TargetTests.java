@@ -5,14 +5,12 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import game.Board;
 import game.BoardCell;
 import game.ClueGame;
-import game.IntBoard;
 
 public class TargetTests {
 	private static Board board;

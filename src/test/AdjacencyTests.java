@@ -82,8 +82,8 @@ public class AdjacencyTests {
 		Assert.assertEquals(4, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(17, 12)));
 		Assert.assertTrue(testList.contains(board.getCellAt(17, 14)));
-		Assert.assertTrue(testList.contains(board.getCellAt(18, 12)));
-		Assert.assertTrue(testList.contains(board.getCellAt(16, 12)));
+		Assert.assertTrue(testList.contains(board.getCellAt(18, 13)));
+		Assert.assertTrue(testList.contains(board.getCellAt(16, 13)));
 	}
 	@Test
 	public void testCornerAdjacencies(){

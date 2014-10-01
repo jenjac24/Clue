@@ -80,7 +80,7 @@ public class Board {
 					tempCell = in2.nextLine().substring(1);
 				}
 				else{
-				tempCell = in2.next();
+					tempCell = in2.next();
 				}
 				if (!rooms.containsKey(tempCell.charAt(0))){
 					in2.close();
@@ -165,56 +165,86 @@ public class Board {
 			return tempCell;
 		}
 		else{
-		return tempCell;
+			return tempCell;
 		}
 	}
-	
 	public LinkedList<BoardCell> getAdjList(BoardCell cell){
 		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
 		int row = cell.row();
 		int column = cell.column();
-		
-		
-		if(row != 0 && !visited.contains(getCellAt(row - 1, column))){
-			BoardCell leftCell = getCellAt(row - 1, column);
-			if(!leftCell.isRoom() || (leftCell.isRoom() && leftCell.isDoorway())){
-				list.add(leftCell);
+
+		if (cell.isDoorway()){
+			RoomCell testDoorDirection = getRoomCellAt(row,column);
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.UP)) list.add(getCellAt(row-1,column));
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.DOWN)) list.add(getCellAt(row+1,column));
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.RIGHT)) list.add(getCellAt(row,column+1));
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.LEFT)) list.add(getCellAt(row,column-1));
+		}
+		//for entering a door, if you're above the door, the bottom cell must have a door direction of UP,
+		//so this is counter intuitive.
+		else{
+			if(row != 0 && !visited.contains(getCellAt(row - 1, column))){
+				BoardCell topCell = getCellAt(row - 1, column);
+				if(!topCell.isRoom()){
+					list.add(topCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row - 1, column);
+					if (doorTest.getDoorDirection().equals(DoorDirection.DOWN)){
+						list.add(doorTest);
+					}
+				}
+			}
+			if(row != (numRows - 1) && !visited.contains(getCellAt(row + 1, column))){
+				BoardCell bottomCell = getCellAt(row + 1, column);
+				if(!bottomCell.isRoom()){
+					list.add(bottomCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row + 1, column);
+					if (doorTest.getDoorDirection().equals(DoorDirection.UP)){
+						list.add(doorTest);
+					}
+				}
+			}
+			if(column != 0 && !visited.contains(getCellAt(row, column - 1))){
+				BoardCell leftCell = getCellAt(row, column - 1);
+				if(!leftCell.isRoom()){
+					list.add(leftCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row, column - 1);
+					if (doorTest.getDoorDirection().equals(DoorDirection.RIGHT)){
+						list.add(doorTest);
+					}
+				}
+			}
+			if(column != (numColumns - 1) && !visited.contains(getCellAt(row, column + 1))){
+				BoardCell rightCell = getCellAt(row, column + 1);
+				if(!rightCell.isRoom()){
+					list.add(rightCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row, column + 1);
+					if (doorTest.getDoorDirection().equals(DoorDirection.LEFT)){
+						list.add(doorTest);
+					}
+				}
 			}
 		}
-		if(row != (numRows - 1) && !visited.contains(getCellAt(row + 1, column))){
-			BoardCell rightCell = getCellAt(row + 1, column);
-			if(!cell.isRoom() || (cell.isRoom() && cell.isDoorway())){
-				list.add(rightCell);
-			}
-		}
-		if(column != 0 && !visited.contains(getCellAt(row, column - 1))){
-			BoardCell topCell = getCellAt(row, column - 1);
-			if((!cell.isRoom() || (cell.isRoom() && cell.isDoorway()))){
-				list.add(topCell);
-			}
-		}
-		if(column != (numColumns - 1) && !visited.contains(getCellAt(row, column + 1))){
-			BoardCell bottomCell = getCellAt(row, column + 1);
-			if((!cell.isRoom() || (cell.isRoom() && cell.isDoorway()))){
-				list.add(bottomCell);
-			}
-		}
-		
+
 		return list;
 	}
 	public void calcAdjacencies() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	public LinkedList<BoardCell> getAdjList(int row, int col) {
 		return getAdjList(getCellAt(row,col));
 	}
 	public void calcTargets(int row, int col, int distance) {
 		calcTargets(getCellAt(row,col), distance);
-		
+
 	}
-	
-	
-	
-	
+
 }
