@@ -18,7 +18,7 @@ public class AdjacencyTests {
 	private static Board board;
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
+		ClueGame game = new ClueGame("OurClueLayout.csv", "OurClueLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
 		//board.calcAdjacencies();

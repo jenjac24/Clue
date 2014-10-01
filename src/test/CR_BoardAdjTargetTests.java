@@ -10,24 +10,16 @@ import org.junit.Test;
 import game.Board;
 import game.BoardCell;
 import game.ClueGame;
-<<<<<<< HEAD
-=======
-import game.IntBoard;
->>>>>>> c1e64c1ef84111faf2279729ff5f4f30006fa8e9
+
 
 public class CR_BoardAdjTargetTests {
-	private static IntBoard board;
+	private static Board board;
 	@BeforeClass
 	public static void setUp() {
 		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
 		game.loadConfigFiles();
-<<<<<<< HEAD
 		board = game.getBoard();
-		//board.calcAdjacencies();
-=======
-		board = game.getIntBoard();
 		board.calcAdjacencies();
->>>>>>> c1e64c1ef84111faf2279729ff5f4f30006fa8e9
 	}
 
 	// Ensure that player does not move around within room

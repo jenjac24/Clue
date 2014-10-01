@@ -5,14 +5,18 @@ import game.RoomCell.DoorDirection;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Board {
 	private BoardCell[][] layout; //size of layout will be determined upon reading file
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
+	Set<BoardCell> targets = new HashSet<BoardCell>();
+	Set<BoardCell> visited = new HashSet<BoardCell>();
 	public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
 		rooms = new HashMap<Character,String>();
 		FileReader reader = new FileReader(legend);
@@ -115,6 +119,24 @@ public class Board {
 		reader1.close();
 		reader2.close();
 	}
+	public void calcTargets(BoardCell thisCell, int numberOfMoves){
+		targets.clear();
+		doCalc(thisCell, numberOfMoves);
+	}
+	public void doCalc(BoardCell thisCell, int numberOfMoves){ //finds possible moves
+		visited.add(thisCell);
+		LinkedList<BoardCell> adjCell = null; 
+		adjCell = getAdjList(thisCell); //may need a try catch?
+		for(BoardCell c : adjCell){
+			if(numberOfMoves == 1) targets.add(c); //if last move used, saves spot as possible location
+			else doCalc(c, numberOfMoves - 1); //spends one move to an adjacent cell
+		}
+		adjCell.clear();
+		visited.clear();
+	}
+	public Set<BoardCell> getTargets(){
+		return targets;
+	}
 	public int getNumRows() {
 		return numRows;
 	}
@@ -147,11 +169,50 @@ public class Board {
 		}
 	}
 	
-	public LinkedList<BoardCell> getAdjList(int row, int column){
-		IntBoard calc = new IntBoard();
-		return calc.getAdjList(getCellAt(row, column));
+	public LinkedList<BoardCell> getAdjList(BoardCell cell){
+		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
+		int row = cell.row();
+		int column = cell.column();
+		
+		
+		if(row != 0 && !visited.contains(getCellAt(row - 1, column))){
+			BoardCell leftCell = getCellAt(row - 1, column);
+			if(!leftCell.isRoom() || (leftCell.isRoom() && leftCell.isDoorway())){
+				list.add(leftCell);
+			}
+		}
+		if(row != (numRows - 1) && !visited.contains(getCellAt(row + 1, column))){
+			BoardCell rightCell = getCellAt(row + 1, column);
+			if(!cell.isRoom() || (cell.isRoom() && cell.isDoorway())){
+				list.add(rightCell);
+			}
+		}
+		if(column != 0 && !visited.contains(getCellAt(row, column - 1))){
+			BoardCell topCell = getCellAt(row, column - 1);
+			if((!cell.isRoom() || (cell.isRoom() && cell.isDoorway()))){
+				list.add(topCell);
+			}
+		}
+		if(column != (numColumns - 1) && !visited.contains(getCellAt(row, column + 1))){
+			BoardCell bottomCell = getCellAt(row, column + 1);
+			if((!cell.isRoom() || (cell.isRoom() && cell.isDoorway()))){
+				list.add(bottomCell);
+			}
+		}
+		
+		return list;
 	}
-	
+	public void calcAdjacencies() {
+		// TODO Auto-generated method stub
+		
+	}
+	public LinkedList<BoardCell> getAdjList(int row, int col) {
+		return getAdjList(getCellAt(row,col));
+	}
+	public void calcTargets(int row, int col, int distance) {
+		calcTargets(getCellAt(row,col), distance);
+		
+	}
 	
 	
 	
