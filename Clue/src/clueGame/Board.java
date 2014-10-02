@@ -1,5 +1,10 @@
 package clueGame;
 
+<<<<<<< HEAD
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Map;
+=======
 import java.awt.List;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,12 +13,93 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 import java.util.Scanner;
 
 import clueGame.RoomCell.DoorDirection;
 
 public class Board {
 
+<<<<<<< HEAD
+	private BoardCell[][] grid;
+	private Map<Character, String> rooms;
+	private int numRows;
+	private int numColumns;
+
+	public Board(){
+		loadBoardConfig();
+		//grid = new BoardCell[numRows][numColumns];
+		//think we initialize whether it is a roomcell or boardcell when we load the file
+	}
+
+	public void loadBoardConfig(){
+		int rows = 0;
+		int cols = 0;
+		int i =0, j=0, count =0;
+		String c;
+		String line;
+		String comma = ",";
+		char first, second;
+		FileReader read;
+		try {
+			read = new FileReader("ClueMap.csv");
+			Scanner scan = new Scanner(read);
+			System.out.println("hello");
+			scan.useDelimiter(comma);
+			while(scan.hasNextLine()){
+				rows++;
+				if(!scan.hasNextLine()){
+					System.out.println("lala");
+					System.out.println(scan.next());
+					while(scan.hasNext()){
+						System.out.println("ro");
+						cols++;
+						c = scan.next();
+					}
+				}
+				line = scan.nextLine();
+				
+			}
+			numRows = rows;
+			numColumns = cols;
+			System.out.println(numRows);
+			System.out.println(numColumns);
+			//if numRows doesn't equal 23 or 22, throw an exception, same for numColumns
+			grid = new BoardCell[numRows][numColumns];
+			Scanner scan2 = new Scanner(read);
+			scan2.useDelimiter(comma);
+			while(scan2.hasNext()){
+				if(count%numColumns==0) {
+					i++;
+					j=-1;
+				}
+				j++;
+				count++;
+				c = scan2.next();
+				if(c.length() > 1){
+					second = c.charAt(1);
+					fillGrid(i, j, c.charAt(0), determineDirection(second), true);
+					System.out.println(c + " first if");
+				}
+				else {
+					first = c.charAt(0);
+					fillGrid(i,j,first, DoorDirection.NONE, false);
+					System.out.println(c + " second if");
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void fillGrid(int i, int j, char first, DoorDirection dir, boolean isDoor){
+		if(rooms.containsKey(first)){
+			grid[i][j] = new RoomCell(first, dir, isDoor);
+		}
+	}
+
+=======
 	private static BoardCell[][] grid;
 	private static Map<Character, String> rooms;
 	private int numRows;
@@ -126,6 +212,7 @@ public class Board {
 		else grid[i][j] = new WalkwayCell(i,j);
 	}
 
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 	public DoorDirection determineDirection(char c){
 		if(c=='U') return DoorDirection.UP;
 		else if(c=='D') return DoorDirection.DOWN;
@@ -144,7 +231,11 @@ public class Board {
 
 	public RoomCell getRoomCellAt(int row, int col){
 		//return grid[row][col];
+<<<<<<< HEAD
+		return new RoomCell('C', DoorDirection.NONE, false);
+=======
 		return new RoomCell(row, col, 'C', DoorDirection.NONE, false);
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 	}
 
 	public int getNumRows() {
@@ -155,4 +246,12 @@ public class Board {
 		return numColumns;
 	}
 
+<<<<<<< HEAD
+	public static void main(String[] args){
+		Board board = new Board();
+		board.loadBoardConfig();
+	}
+
+=======
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 }

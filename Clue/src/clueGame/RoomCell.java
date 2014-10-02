@@ -8,9 +8,13 @@ public class RoomCell extends BoardCell {
 	private char roomInitial;
 	private boolean isDoor;
 	
+<<<<<<< HEAD
+	public RoomCell(char c, DoorDirection dir, boolean door){
+=======
 	public RoomCell(int rows, int cols, char c, DoorDirection dir, boolean door){
 		row = rows;
 		col = cols;
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 		doorDirection = dir;
 		roomInitial = c;
 		isDoor = door;

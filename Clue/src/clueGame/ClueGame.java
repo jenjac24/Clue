@@ -23,6 +23,14 @@ public class ClueGame {
 		loadRoomConfig();
 		board = new Board(layoutFile, rooms);
 		board.loadBoardConfig();
+<<<<<<< HEAD
+		loadLegend();
+	}
+	
+	public String getLayoutFile(){
+		return layoutFile;
+=======
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 	}
 
 	public String getLayoutFile(){
@@ -66,6 +74,15 @@ public class ClueGame {
 */
 	}
 
+<<<<<<< HEAD
+	public void loadRoomConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+=======
+>>>>>>> d5740a5824928b931c0a25a5029124877cc9db7e
 }
 
 
