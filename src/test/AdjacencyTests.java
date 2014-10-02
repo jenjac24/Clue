@@ -21,7 +21,7 @@ public class AdjacencyTests {
 		ClueGame game = new ClueGame("OurClueLayout.csv", "OurClueLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
-		//board.calcAdjacencies();
+		board.calcAdjacencies();
 	}
 	@Test
 	public void testWalkWay(){
@@ -40,7 +40,6 @@ public class AdjacencyTests {
 		Assert.assertTrue(testList.contains(board.getCellAt(8, 10)));
 	}
 	@Test
-<<<<<<< HEAD
 	public void testCornerOfWalkWay(){
 		LinkedList<BoardCell> testList;
 		testList = board.getAdjList(0, 23);
@@ -52,8 +51,6 @@ public class AdjacencyTests {
 		Assert.assertTrue(testList.contains(board.getCellAt(1, 0)));
 	}
 	@Test
-=======
->>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
 	public void testInsideRoom(){
 		LinkedList<BoardCell> testList;
 		testList = board.getAdjList(3, 6);
