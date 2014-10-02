@@ -1,0 +1,130 @@
+We almost always pair program.
+commit d5740a5824928b931c0a25a5029124877cc9db7e
+Author: jenjac24 <jejacobs@mymail.mines.edu>
+Date:   Mon Sep 29 17:53:45 2014 -0600
+
+    adding files
+
+commit 55207a9629f0443bca80ad52242a7dd6b8b828cb
+Author: jenjac24 <jejacobs@mymail.mines.edu>
+Date:   Fri Sep 26 17:51:18 2014 -0600
+
+    added roomConfig, updated BoardConfig
+
+commit a82e1a6cb35dcb0d34675f283dd46ae5735d202b
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Fri Sep 26 13:46:52 2014 -0600
+
+    halfway through reading in files
+
+commit a8acb7358d57161267217064ab1009398e49abf7
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Fri Sep 26 12:32:34 2014 -0600
+
+    adding files from Part1 assignment
+
+commit 363e8a3fc4ea8439f0cc923df620f3f9dd37f3d6
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 25 19:23:48 2014 -0600
+
+    2 tests pass
+
+commit 2bdd805d417209f95dcfb999cbb2f40c6c78f5a8
+Merge: d6d0552 ee67d44
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 25 19:07:59 2014 -0600
+
+    Merge branch 'master' of https://github.com/CarathrynBeutel/Clue
+
+commit ee67d44e6cdaa47216aad570b3f5df21926f42ab
+Author: Cara Beutel <cbeutel@CT156-25.adit.mines.edu>
+Date:   Thu Sep 25 18:14:32 2014 -0600
+
+    tested to see what was wrong with first test
+
+commit d6d055265f9dd40c9f75ef08218338a8f2fc9323
+Merge: 2a9215f 9d74a63
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 25 12:02:18 2014 -0600
+
+    Merge branch 'master' of https://github.com/CarathrynBeutel/Clue
+
+commit 9d74a63b9c36100d58c043dca9a41fff22ea59f7
+Author: Cara Beutel <cbeutel@MZ022-45.adit.mines.edu>
+Date:   Thu Sep 25 12:01:16 2014 -0600
+
+    Modified calcTargets and calcAdjacencies
+
+commit 2a9215fe0419288e98745b255a2fef301e0a1192
+Merge: 0b0a93e 43a8cc8
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 25 11:47:27 2014 -0600
+
+    Merge branch 'master' of https://github.com/CarathrynBeutel/Clue
+
+commit 43a8cc83e88daa199677e3be4704ee8b629b5db6
+Author: Cara Beutel <cbeutel@MZ022-45.adit.mines.edu>
+Date:   Thu Sep 25 11:43:49 2014 -0600
+
+    Added src
+
+commit fda84be9e6ba5a4843ee6328276f076807371b29
+Merge: e0863cf 8a08952
+Author: Cara Beutel <cbeutel@MZ022-45.adit.mines.edu>
+Date:   Thu Sep 25 11:42:13 2014 -0600
+
+    Merge branch 'master' of https://github.com/CarathrynBeutel/Clue
+
+commit e0863cf66999d31571769efa1b0b6f78235716c2
+Author: Cara Beutel <cbeutel@MZ022-45.adit.mines.edu>
+Date:   Thu Sep 25 11:26:16 2014 -0600
+
+    Added git ignore
+
+commit 0b0a93e41055c29db1fe78e784716ac718384ab8
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 25 11:15:34 2014 -0600
+
+    added .gitignore
+
+commit 8a089528a269514bf617635a22ef58ebb3939dfe
+Author: CarathrynBeutel <cbeutel@mymail.mines.edu>
+Date:   Thu Sep 25 11:05:13 2014 -0600
+
+    Initial commit
+
+commit 210b7b047ea594dc751e07f6e7874cf5e65e35c1
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 18 19:48:40 2014 -0600
+
+    cleaned up code, deleted unneeded lines
+
+commit 3854614f8acbf34ed425d5b71469486d0ecab09e
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 18 19:44:21 2014 -0600
+
+    final commit, all three parts
+
+commit 5f9f5a5e2344c011ed019da868d43a7c8a5a4755
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 18 16:01:43 2014 -0600
+
+    followed rubric this time, updated exception handling
+
+commit 0ff1cbfe83eec33432ead114bc0f3e33eb56efd2
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 18 15:55:55 2014 -0600
+
+    added exception handling
+
+commit 1086df7d831ca7e7cdc0e0d6df1edb8cb3214abf
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 18 15:44:19 2014 -0600
+
+    second commit - adding files
+
+commit d2dd757515240d81050ed2fa4d0adfe7fff23afd
+Author: Jennifer Jacobs <jejacobs@mymail.mines.edu>
+Date:   Thu Sep 18 15:36:35 2014 -0600
+
+    first commit
