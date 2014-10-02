@@ -120,12 +120,12 @@ public class TargetTests {
 	public void testTargetsLeavingRoom(){
 		board.calcTargets(5,18,3);
 		Set<BoardCell> targets = board.getTargets();
-		Assert.assertEquals(2, targets.size());
+		Assert.assertEquals(3, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(6, 16)));
 		Assert.assertTrue(targets.contains(board.getCellAt(6, 20)));
 		board.calcTargets(7,7,6);
 		targets = board.getTargets();
-		Assert.assertEquals(16, targets.size());
+		Assert.assertEquals(17, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(2, 8)));
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 8)));
 		Assert.assertTrue(targets.contains(board.getCellAt(6, 8)));
