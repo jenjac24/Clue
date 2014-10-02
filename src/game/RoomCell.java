@@ -32,7 +32,7 @@ public class RoomCell extends BoardCell{
 		}
 		return true;
 	}
-	
+	@Override
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}

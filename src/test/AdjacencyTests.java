@@ -32,6 +32,12 @@ public class AdjacencyTests {
 		Assert.assertTrue(testList.contains(board.getCellAt(5, 9)));
 		Assert.assertTrue(testList.contains(board.getCellAt(4, 8)));
 		Assert.assertTrue(testList.contains(board.getCellAt(4, 10)));
+		testList = board.getAdjList(8, 9);
+		Assert.assertEquals(4, testList.size());
+		Assert.assertTrue(testList.contains(board.getCellAt(7, 9)));
+		Assert.assertTrue(testList.contains(board.getCellAt(9, 9)));
+		Assert.assertTrue(testList.contains(board.getCellAt(8, 8)));
+		Assert.assertTrue(testList.contains(board.getCellAt(8, 10)));
 	}
 	@Test
 	public void testCornerOfWalkWay(){
@@ -40,6 +46,9 @@ public class AdjacencyTests {
 		Assert.assertEquals(2, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(0, 22)));
 		Assert.assertTrue(testList.contains(board.getCellAt(1, 23)));
+		testList = board.getAdjList(0, 0);
+		Assert.assertTrue(testList.contains(board.getCellAt(0, 1)));
+		Assert.assertTrue(testList.contains(board.getCellAt(1, 0)));
 	}
 	@Test
 	public void testInsideRoom(){

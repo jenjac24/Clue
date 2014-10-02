@@ -1,5 +1,7 @@
 package game;
 
+import game.RoomCell.DoorDirection;
+
  public class BoardCell {
 	int row, column;
 	
@@ -28,6 +30,9 @@ package game;
 	}
 	public Boolean isDoorway(){
 		return false;
+	}
+	public DoorDirection getDoorDirection() {
+		return RoomCell.DoorDirection.NONE;
 	}
 	public void draw(){
 		

@@ -8,12 +8,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Board {
-	private BoardCell[][] layout; //size of layout will be determined upon reading file
+	private static BoardCell[][] layout; //size of layout will be determined upon reading file
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
-	public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
+	IntBoard calc;
+	
+	
+public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
 		rooms = new HashMap<Character,String>();
 		FileReader reader = new FileReader(legend);
 		FileReader reader1 = new FileReader(layoutFile);
@@ -115,6 +119,10 @@ public class Board {
 		reader1.close();
 		reader2.close();
 	}
+	
+	public void calcAdjacencies(){
+		calc = new IntBoard(22, 23);
+	}
 	public int getNumRows() {
 		return numRows;
 	}
@@ -133,7 +141,7 @@ public class Board {
 	public BoardCell[][] getLayout() {
 		return layout;
 	}
-	public BoardCell getCellAt(int row, int col) {
+	public static BoardCell getCellAt(int row, int col) {
 		return layout[row][col];
 	}
 	public RoomCell getRoomCellAt(int row, int col) {
@@ -148,12 +156,15 @@ public class Board {
 	}
 	
 	public LinkedList<BoardCell> getAdjList(int row, int column){
-		IntBoard calc = new IntBoard();
 		return calc.getAdjList(getCellAt(row, column));
 	}
 	
+	public void calcTargets(int row, int column, int numberOfMoves){
+		calc.calcTargets(getCellAt(row, column), numberOfMoves);
+	}
 	
-	
-	
+	public Set<BoardCell> getTargets(){
+		return calc.getTargets();
+	}
 	
 }
