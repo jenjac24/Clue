@@ -15,16 +15,10 @@ public class Board {
 	private static BoardCell[][] layout; //size of layout will be determined upon reading file
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
-<<<<<<< HEAD
 	IntBoard calc;
 	
 	
-public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
-=======
-	Set<BoardCell> targets = new HashSet<BoardCell>();
-	Set<BoardCell> visited = new HashSet<BoardCell>();
 	public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
->>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
 		rooms = new HashMap<Character,String>();
 		FileReader reader = new FileReader(legend);
 		FileReader reader1 = new FileReader(layoutFile);
@@ -126,29 +120,9 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 		reader1.close();
 		reader2.close();
 	}
-<<<<<<< HEAD
 	
 	public void calcAdjacencies(){
-		calc = new IntBoard(22, 23);
-=======
-	public void calcTargets(BoardCell thisCell, int numberOfMoves){
-		targets.clear();
-		doCalc(thisCell, numberOfMoves);
-	}
-	public void doCalc(BoardCell thisCell, int numberOfMoves){ //finds possible moves
-		visited.add(thisCell);
-		LinkedList<BoardCell> adjCell = null; 
-		adjCell = getAdjList(thisCell); //may need a try catch?
-		for(BoardCell c : adjCell){
-			if(numberOfMoves == 1) targets.add(c); //if last move used, saves spot as possible location
-			else doCalc(c, numberOfMoves - 1); //spends one move to an adjacent cell
-		}
-		adjCell.clear();
-		visited.clear();
-	}
-	public Set<BoardCell> getTargets(){
-		return targets;
->>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
+		calc = new IntBoard(numRows, numColumns);
 	}
 	public int getNumRows() {
 		return numRows;
@@ -181,6 +155,8 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 			return tempCell;
 		}
 	}
+		
+	/*
 	public LinkedList<BoardCell> getAdjList(BoardCell cell){
 		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
 		int row = cell.row();
@@ -247,8 +223,8 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 		}
 
 		return list;
-	}
-<<<<<<< HEAD
+	}*/
+
 	
 	public LinkedList<BoardCell> getAdjList(int row, int column){
 		return calc.getAdjList(getCellAt(row, column));
@@ -261,19 +237,4 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 	public Set<BoardCell> getTargets(){
 		return calc.getTargets();
 	}
-	
-=======
-	public void calcAdjacencies() {
-		// TODO Auto-generated method stub
-
-	}
-	public LinkedList<BoardCell> getAdjList(int row, int col) {
-		return getAdjList(getCellAt(row,col));
-	}
-	public void calcTargets(int row, int col, int distance) {
-		calcTargets(getCellAt(row,col), distance);
-
-	}
-
->>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
 }

@@ -91,14 +91,20 @@ public class IntBoard {
 			if(topCell.isDoorway() && notDoor){
 				if(topCell.getDoorDirection() == RoomCell.DoorDirection.DOWN)
 				list.add(topCell);
+			}else if(!notDoor){
+				if(Board.getCellAt(row,  column).getDoorDirection() == RoomCell.DoorDirection.UP)
+					list.add(topCell);	
 			}else if(!topCell.isRoom())
 				list.add(topCell);
 		}
-		if(row != (length - 1) && !visited.contains(Board.getCellAt(row + 1, column))){
+		if(row < (length - 1) && !visited.contains(Board.getCellAt(row + 1, column))){
 			BoardCell botomCell = Board.getCellAt(row + 1, column);
 			if(botomCell.isDoorway() && notDoor){
 				if(botomCell.getDoorDirection() == RoomCell.DoorDirection.UP)
 				list.add(botomCell);
+			}else if(!notDoor){
+				if(Board.getCellAt(row,  column).getDoorDirection() == RoomCell.DoorDirection.DOWN)
+					list.add(botomCell);
 			}else if(!botomCell.isRoom())
 				list.add(botomCell);
 		}
@@ -107,14 +113,20 @@ public class IntBoard {
 			if(leftCell.isDoorway() && notDoor){
 				if(leftCell.getDoorDirection() == RoomCell.DoorDirection.RIGHT)
 				list.add(leftCell);
+			}else if(!notDoor){
+				if(Board.getCellAt(row,  column).getDoorDirection() == RoomCell.DoorDirection.LEFT)
+					list.add(leftCell);
 			}else if(!leftCell.isRoom())
 				list.add(leftCell);
 		}
-		if(column != (width - 1) && !visited.contains(Board.getCellAt(row, column + 1))){
+		if(column < (width - 1) && !visited.contains(Board.getCellAt(row, column + 1))){
 			BoardCell rightCell = Board.getCellAt(row, column + 1);
 			if(rightCell.isDoorway() && notDoor){
 				if(rightCell.getDoorDirection() == RoomCell.DoorDirection.LEFT)
 				list.add(rightCell);
+			}else if(!notDoor){
+				if(Board.getCellAt(row,  column).getDoorDirection() == RoomCell.DoorDirection.RIGHT)
+					list.add(rightCell);
 			}else if(!rightCell.isRoom())
 				list.add(rightCell);
 		}

@@ -63,6 +63,7 @@ public class AdjacencyTests {
 		Assert.assertEquals(1, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(6, 19)));
 		testList = board.getAdjList(14, 4);
+		System.out.println(testList);
 		Assert.assertEquals(1, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(13, 4)));
 	}
