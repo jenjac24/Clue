@@ -1,0 +1,1 @@
+game.BadConfigFormatException: Error, row of legend file doesn't have exactly 2 items

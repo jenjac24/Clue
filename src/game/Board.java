@@ -5,19 +5,18 @@ import game.RoomCell.DoorDirection;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
-	private static BoardCell[][] layout; //size of layout will be determined upon reading file
+	private BoardCell[][] layout; //size of layout will be determined upon reading file
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
-	IntBoard calc;
-	
-	
+	private IntBoard calc;
+
+	//big mess of code but correctly loads in all the data from input files
 	public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
 		rooms = new HashMap<Character,String>();
 		FileReader reader = new FileReader(legend);
@@ -120,9 +119,9 @@ public class Board {
 		reader1.close();
 		reader2.close();
 	}
-	
+
 	public void calcAdjacencies(){
-		calc = new IntBoard(numRows, numColumns);
+		calc = new IntBoard(numRows, numColumns, layout);
 	}
 	public int getNumRows() {
 		return numRows;
@@ -142,7 +141,7 @@ public class Board {
 	public BoardCell[][] getLayout() {
 		return layout;
 	}
-	public static BoardCell getCellAt(int row, int col) {
+	public BoardCell getCellAt(int row, int col) {
 		return layout[row][col];
 	}
 	public RoomCell getRoomCellAt(int row, int col) {
@@ -155,85 +154,14 @@ public class Board {
 			return tempCell;
 		}
 	}
-		
-	/*
-	public LinkedList<BoardCell> getAdjList(BoardCell cell){
-		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
-		int row = cell.row();
-		int column = cell.column();
-
-		if (cell.isDoorway()){
-			RoomCell testDoorDirection = getRoomCellAt(row,column);
-			if (testDoorDirection.getDoorDirection().equals(DoorDirection.UP)) list.add(getCellAt(row-1,column));
-			if (testDoorDirection.getDoorDirection().equals(DoorDirection.DOWN)) list.add(getCellAt(row+1,column));
-			if (testDoorDirection.getDoorDirection().equals(DoorDirection.RIGHT)) list.add(getCellAt(row,column+1));
-			if (testDoorDirection.getDoorDirection().equals(DoorDirection.LEFT)) list.add(getCellAt(row,column-1));
-		}
-		//for entering a door, if you're above the door, the bottom cell must have a door direction of UP,
-		//so this is counter intuitive.
-		else{
-			if(row != 0 && !visited.contains(getCellAt(row - 1, column))){
-				BoardCell topCell = getCellAt(row - 1, column);
-				if(!topCell.isRoom()){
-					list.add(topCell);
-				}
-				else {
-					RoomCell doorTest = getRoomCellAt(row - 1, column);
-					if (doorTest.getDoorDirection().equals(DoorDirection.DOWN)){
-						list.add(doorTest);
-					}
-				}
-			}
-			if(row != (numRows - 1) && !visited.contains(getCellAt(row + 1, column))){
-				BoardCell bottomCell = getCellAt(row + 1, column);
-				if(!bottomCell.isRoom()){
-					list.add(bottomCell);
-				}
-				else {
-					RoomCell doorTest = getRoomCellAt(row + 1, column);
-					if (doorTest.getDoorDirection().equals(DoorDirection.UP)){
-						list.add(doorTest);
-					}
-				}
-			}
-			if(column != 0 && !visited.contains(getCellAt(row, column - 1))){
-				BoardCell leftCell = getCellAt(row, column - 1);
-				if(!leftCell.isRoom()){
-					list.add(leftCell);
-				}
-				else {
-					RoomCell doorTest = getRoomCellAt(row, column - 1);
-					if (doorTest.getDoorDirection().equals(DoorDirection.RIGHT)){
-						list.add(doorTest);
-					}
-				}
-			}
-			if(column != (numColumns - 1) && !visited.contains(getCellAt(row, column + 1))){
-				BoardCell rightCell = getCellAt(row, column + 1);
-				if(!rightCell.isRoom()){
-					list.add(rightCell);
-				}
-				else {
-					RoomCell doorTest = getRoomCellAt(row, column + 1);
-					if (doorTest.getDoorDirection().equals(DoorDirection.LEFT)){
-						list.add(doorTest);
-					}
-				}
-			}
-		}
-
-		return list;
-	}*/
-
-	
 	public LinkedList<BoardCell> getAdjList(int row, int column){
 		return calc.getAdjList(getCellAt(row, column));
 	}
-	
+
 	public void calcTargets(int row, int column, int numberOfMoves){
 		calc.calcTargets(getCellAt(row, column), numberOfMoves);
 	}
-	
+
 	public Set<BoardCell> getTargets(){
 		return calc.getTargets();
 	}
