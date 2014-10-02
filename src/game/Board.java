@@ -5,6 +5,7 @@ import game.RoomCell.DoorDirection;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,10 +15,16 @@ public class Board {
 	private static BoardCell[][] layout; //size of layout will be determined upon reading file
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
+<<<<<<< HEAD
 	IntBoard calc;
 	
 	
 public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
+=======
+	Set<BoardCell> targets = new HashSet<BoardCell>();
+	Set<BoardCell> visited = new HashSet<BoardCell>();
+	public void loadBoardConfig(String layoutFile, String legend) throws IOException, BadConfigFormatException{
+>>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
 		rooms = new HashMap<Character,String>();
 		FileReader reader = new FileReader(legend);
 		FileReader reader1 = new FileReader(layoutFile);
@@ -80,7 +87,7 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 					tempCell = in2.nextLine().substring(1);
 				}
 				else{
-				tempCell = in2.next();
+					tempCell = in2.next();
 				}
 				if (!rooms.containsKey(tempCell.charAt(0))){
 					in2.close();
@@ -119,9 +126,29 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 		reader1.close();
 		reader2.close();
 	}
+<<<<<<< HEAD
 	
 	public void calcAdjacencies(){
 		calc = new IntBoard(22, 23);
+=======
+	public void calcTargets(BoardCell thisCell, int numberOfMoves){
+		targets.clear();
+		doCalc(thisCell, numberOfMoves);
+	}
+	public void doCalc(BoardCell thisCell, int numberOfMoves){ //finds possible moves
+		visited.add(thisCell);
+		LinkedList<BoardCell> adjCell = null; 
+		adjCell = getAdjList(thisCell); //may need a try catch?
+		for(BoardCell c : adjCell){
+			if(numberOfMoves == 1) targets.add(c); //if last move used, saves spot as possible location
+			else doCalc(c, numberOfMoves - 1); //spends one move to an adjacent cell
+		}
+		adjCell.clear();
+		visited.clear();
+	}
+	public Set<BoardCell> getTargets(){
+		return targets;
+>>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
 	}
 	public int getNumRows() {
 		return numRows;
@@ -151,9 +178,77 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 			return tempCell;
 		}
 		else{
-		return tempCell;
+			return tempCell;
 		}
 	}
+	public LinkedList<BoardCell> getAdjList(BoardCell cell){
+		LinkedList<BoardCell> list = new LinkedList<BoardCell>();
+		int row = cell.row();
+		int column = cell.column();
+
+		if (cell.isDoorway()){
+			RoomCell testDoorDirection = getRoomCellAt(row,column);
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.UP)) list.add(getCellAt(row-1,column));
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.DOWN)) list.add(getCellAt(row+1,column));
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.RIGHT)) list.add(getCellAt(row,column+1));
+			if (testDoorDirection.getDoorDirection().equals(DoorDirection.LEFT)) list.add(getCellAt(row,column-1));
+		}
+		//for entering a door, if you're above the door, the bottom cell must have a door direction of UP,
+		//so this is counter intuitive.
+		else{
+			if(row != 0 && !visited.contains(getCellAt(row - 1, column))){
+				BoardCell topCell = getCellAt(row - 1, column);
+				if(!topCell.isRoom()){
+					list.add(topCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row - 1, column);
+					if (doorTest.getDoorDirection().equals(DoorDirection.DOWN)){
+						list.add(doorTest);
+					}
+				}
+			}
+			if(row != (numRows - 1) && !visited.contains(getCellAt(row + 1, column))){
+				BoardCell bottomCell = getCellAt(row + 1, column);
+				if(!bottomCell.isRoom()){
+					list.add(bottomCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row + 1, column);
+					if (doorTest.getDoorDirection().equals(DoorDirection.UP)){
+						list.add(doorTest);
+					}
+				}
+			}
+			if(column != 0 && !visited.contains(getCellAt(row, column - 1))){
+				BoardCell leftCell = getCellAt(row, column - 1);
+				if(!leftCell.isRoom()){
+					list.add(leftCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row, column - 1);
+					if (doorTest.getDoorDirection().equals(DoorDirection.RIGHT)){
+						list.add(doorTest);
+					}
+				}
+			}
+			if(column != (numColumns - 1) && !visited.contains(getCellAt(row, column + 1))){
+				BoardCell rightCell = getCellAt(row, column + 1);
+				if(!rightCell.isRoom()){
+					list.add(rightCell);
+				}
+				else {
+					RoomCell doorTest = getRoomCellAt(row, column + 1);
+					if (doorTest.getDoorDirection().equals(DoorDirection.LEFT)){
+						list.add(doorTest);
+					}
+				}
+			}
+		}
+
+		return list;
+	}
+<<<<<<< HEAD
 	
 	public LinkedList<BoardCell> getAdjList(int row, int column){
 		return calc.getAdjList(getCellAt(row, column));
@@ -167,4 +262,18 @@ public void loadBoardConfig(String layoutFile, String legend) throws IOException
 		return calc.getTargets();
 	}
 	
+=======
+	public void calcAdjacencies() {
+		// TODO Auto-generated method stub
+
+	}
+	public LinkedList<BoardCell> getAdjList(int row, int col) {
+		return getAdjList(getCellAt(row,col));
+	}
+	public void calcTargets(int row, int col, int distance) {
+		calcTargets(getCellAt(row,col), distance);
+
+	}
+
+>>>>>>> e5e61b592eca591b073bf5162a3d76dbc63463c2
 }

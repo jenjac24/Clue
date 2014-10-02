@@ -10,7 +10,7 @@ import org.junit.Test;
 import game.Board;
 import game.BoardCell;
 import game.ClueGame;
-import game.IntBoard;
+
 
 public class CR_BoardAdjTargetTests {
 	private static Board board;
